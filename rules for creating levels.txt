@@ -1,0 +1,83 @@
+______________________________________________________________________________________________
+______________________________________________________________________________________________
+                   \|/                                             \|/
+                   \|/                                             \|/
+                   \|/                 Cube Dash                   \|/
+                   \|/                                             \|/
+                   \|/                                             \|/
+                   \|/                rules to make                \|/
+                   \|/                                             \|/
+                   \|/               your own levels               \|/
+                   \|/                                             \|/
+                   \|/                                             \|/
+______________________________________________________________________________________________
+______________________________________________________________________________________________
+
+1º Download Tiled from https://www.mapeditor.org/
+
+2ª Create a new map with x:15 , y:28
+
+3ª Create your own tiles:
+        - they HAVE to be 32 pixel long
+        - they can be individual in a folder or in a single file (this method dos not support tile transparency)
+        - for animated tiles they HAVE to be in a folder
+
+4º import your tiles and create new layers for each of them
+        - there should be at least a layer for:
+            - terrain(collision tiles)
+            - scores(coins or objectives)
+            - player(tells the game where the player starts(only one position should be filled with the id 0))
+        - animated tiles have to be on it´s own layer(and should only have an id of 0)
+
+5º import csv files to a folder
+       - player file should be named _player
+
+       - for the rest of the layers
+
+        1st letter should be a underscore '_'
+
+        2nd letter identifies the player interaction with the tile
+            - terrain or tiles with = 'c'
+            - scores or objective tiles = 's'
+            - teleport_tiles = 't' (every two linked teleports must be on a different layer)
+            - spikes or killing tiles = 'k'
+            - change direction tile = 'd'
+            - image tiles = 'i'
+
+        3rd letter identifies the type of tile
+            - static = 's'
+            - animated = 'a'
+
+        4th letter identifies the type of import tile image
+            - tile set image = 't'
+            - folder = 'f'
+
+        5th letter should be a underscore = '_', followed by the layers name
+
+6º set a folder in the same directory as the csv files with the name graphics this is where the tile images are going to be
+        - for each tile set there should be a img file or a folder with the same name as the layer
+
+        Your final folder should look like this
+            -level_1
+                |__'_player.csv'
+                |__'cst_terrain.csv'
+                |__'saf_scores.csv'
+                |__'graphics'
+                    |__'terrain.png'
+                    |__'scores'
+                        |__'0.png'
+                        |__'1.png'
+                        |__'2.png'
+
+7º drop your folder into levels and add it to the dictionary that you desire in the game_data.py
+    - the dic key is the name of the level
+    - the value must be a string with it's directory from main.py(ex: '../levels/level_1')
+
+
+______________________________________________________________________________________________
+Useful stuff to know:
+    - tiles get draw in this order: - images_tiles,
+                                    - terrain_tiles,
+                                    - spikes_tiles(or kill_tiles),
+                                    - scores_tiles,
+                                    - player_tile
