@@ -304,3 +304,6 @@ class Level:
         self.player.draw(self.display)
 
         return self.state
+
+    def dumb(self):
+        print(self.player.direction.x)
